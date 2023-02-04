@@ -1,4 +1,8 @@
 const axios = require('axios');
+const crypto = require('crypto');
+const querystring = require('querystring');
+const qs = require('qs');
+
 class CoinsbitClient {
   constructor() {
     this.request = axios.create({
@@ -6,6 +10,12 @@ class CoinsbitClient {
       timeout: 10000,
       headers: { 'Content-Type': 'application/json' }
     });
+  }
+
+  setKey(apiKey, apiSecret) {
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
+
   }
 
   // Public API
@@ -51,6 +61,43 @@ class CoinsbitClient {
   }
   async getKline() {
     const response = await this.request.get('/api/v1/public/kline');
+    return response.data;
+  }
+  // get account balance from coinsbit /api/v1/account/balances
+
+  // Private API
+  postQuery (path, params = []) {
+
+  var date = new Date();
+  var nonce = date.getTime();
+  var data = Object.assign({
+    'request': path,
+    'nonce': nonce
+  }, params);
+
+  data = JSON.stringify(data);
+  const payload = Buffer.from(data).toString('base64');
+  signature = crypto.createHmac('sha512', this.apiSecret).update(payload).digest('hex');
+
+
+    let options = {
+      method: "POST",
+      uri: this.endPoint + path,
+      headers: {
+          'Content-type': 'application/json',
+          'X-TXC-APIKEY': this.apiKey,
+          'X-TXC-PAYLOAD': payload,
+          'X-TXC-SIGNATURE': signature
+      },
+      body: data,
+      json: false
+    };
+  }
+  async getAccountBalance() {
+    
+    
+    const response = await this.request.post('/api/v1/account/balances');
+
     return response.data;
   }
 
