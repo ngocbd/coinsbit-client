@@ -1,0 +1,24 @@
+{
+  "name": "coinsbit-client",
+  "version": "1.0.0",
+  "description": "A client for coinsbit writen in nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "author": "Ngocbd",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "chai": "^4.1.2",
+    "mocha": "^9.1.3",
+    "sinon": "^12.0.0",
+    "supertest": "^3.0.0"
+  }
+  
+}
