@@ -77,28 +77,19 @@ class CoinsbitClient {
 
   data = JSON.stringify(data);
   const payload = Buffer.from(data).toString('base64');
-  signature = crypto.createHmac('sha512', this.apiSecret).update(payload).digest('hex');
+  var signature = crypto.createHmac('sha512', this.apiSecret).update(payload).digest('hex');
 
 
-    let options = {
-      method: "POST",
-      uri: this.endPoint + path,
-      headers: {
-          'Content-type': 'application/json',
-          'X-TXC-APIKEY': this.apiKey,
-          'X-TXC-PAYLOAD': payload,
-          'X-TXC-SIGNATURE': signature
-      },
-      body: data,
-      json: false
-    };
+    
+   return this.request.post(path, data, { headers: { 'Content-type': 'application/json', 'X-TXC-APIKEY': this.apiKey, 'X-TXC-PAYLOAD': payload, 'X-TXC-SIGNATURE': signature } }) 
+   
   }
   async getAccountBalance() {
     
     
-    const response = await this.request.post('/api/v1/account/balances');
+    const response = await this.postQuery('/api/v1/account/balances');
 
-    return response.data;
+    return response;
   }
 
   // Market API
