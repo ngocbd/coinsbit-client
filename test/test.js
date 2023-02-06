@@ -76,8 +76,10 @@ describe("CoinsbitClient Tests", () => {
 	// AccountAPI
 
 	 it('should return balances', async () => {
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		//coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
+		
 		const balances = await coinsbitClient.getAccountBalance();
-		console.log(balances);
+		console.log(JSON.stringify(balances.data));
 	 });
 })

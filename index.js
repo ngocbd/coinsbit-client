@@ -6,7 +6,7 @@ const qs = require('qs');
 class CoinsbitClient {
   constructor() {
     this.request = axios.create({
-      baseURL: 'https://coinsbit.io',
+      baseURL: 'https://api.coinsbit.io',
       timeout: 10000,
       headers: { 'Content-Type': 'application/json' }
     });
