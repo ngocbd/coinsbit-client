@@ -92,59 +92,76 @@ class CoinsbitClient {
     return response;
   }
   // get Accont Balance of each coin ID
-  async getAccountBalanceEach(AssestID){
-    const response = await this.postQuery('/api/v1/account/balance', AssestID);
+  async getAccountBalanceEach(assetId){
+    const response = await this.postQuery('/api/v1/account/balance', assetId);
     return response;
   }
-  // get Order by Id
-  async getOrder(orderId){
-    const data = {
-      orderId: orderId,
-      offset: 10,
-      limit: 100
-    };
-    const response = await this.postQuery('/api/v1/account/order', data);
+  // get Order 
+  async getOrder(request = {}){
+    //const {orderId, offset = 0, limit = 50 } = request;
+    const response = await this.postQuery('/api/v1/account/order', request);
     return response;
+
   }
+
   //get account trades
-  async getTrades(orderId){
-    const request = {
-      orderId: orderId,
-      offset: 10,
-      limit: 100
-    };
+ 
+  async getTrades(request = {}){
+    //const {orderId, offset = 0, limit = 50 } = request;
     const response = await this.postQuery('/api/v1/account/trades', request);
     return response;
+
   }
+
+  //
   // get order history
-  async getOrderHistory(){
-    // optinal 
-    const request ={
-      offset: 10, //optional; default value 0
-	    limit: 100// optional; default value 50
-    }
+  async getOrderHistory(request = {}){
+    //const {offset = 0, limit = 50 } = request;
     const response = await this.postQuery('/api/v1/account/order_history', request);
     return response;
+
   }
 
   // get order history list 
-  async getOrderHistoryList(){
-    // optinal 
-    const request ={
-      offset: 10, //optional; default value 0
-	    limit: 100// optional; default value 50
-    }
+  async getOrderHistoryList(request = {}){
+    //const {offset = 0, limit = 50 } = request;
     const response = await this.postQuery('/api/v1/account/order_history_list', request);
+    return response;
+
+  }
+  // Market API
+  /**
+   * @dev creat new Order from market using API
+   * @param {*} market - coin pairs eg. FRL_USDT
+   * @param {*} side  -  buy or sell action
+   * @param {*} amount - expected Amount of coin to buy or sell 
+   * @param {*} price - expected price for selling or buying
+   * @returns 
+   */
+  async createNewOrder(request = {}) {
+    //const {market, side , amount, price } = request;
+    const response = await this.postQuery('/api/v1/order/new', request);
+    return response;
+  }
+  /**
+   * @dev: Be able to cancel the order
+   * @param {*} market - coin pairs eg. FRL_USDT
+   * @param {*} orderId - order id 
+   */
+  async cancelOrder(market, orderId){
+    const request = {
+      market : market,
+      orderId:  orderId
+    }
+    const response = await this.postQuery('/api/v1/order/cancel', request);
     return response;
   }
 
+  async cancelOrder(request = {}){
+    const response = await this.postQuery('/api/v1/order/cancel', request);
+    return response;
+  }
 
-  //async getAccountBalance
-  // Market API
-  // async getNew() {
-  //   const response = await this.request.get('/api/v1/order/new');
-  //   return response.data;
-  // }
 
   // async getCancel() {
   //   const response = await this.request.get('/api/v1/order/cancel');
