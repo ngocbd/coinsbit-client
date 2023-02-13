@@ -91,7 +91,55 @@ class CoinsbitClient {
 
     return response;
   }
+  // get Accont Balance of each coin ID
+  async getAccountBalanceEach(AssestID){
+    const response = await this.postQuery('/api/v1/account/balance', AssestID);
+    return response;
+  }
+  // get Order by Id
+  async getOrder(orderId){
+    const data = {
+      orderId: orderId,
+      offset: 10,
+      limit: 100
+    };
+    const response = await this.postQuery('/api/v1/account/order', data);
+    return response;
+  }
+  //get account trades
+  async getTrades(orderId){
+    const request = {
+      orderId: orderId,
+      offset: 10,
+      limit: 100
+    };
+    const response = await this.postQuery('/api/v1/account/trades', request);
+    return response;
+  }
+  // get order history
+  async getOrderHistory(){
+    // optinal 
+    const request ={
+      offset: 10, //optional; default value 0
+	    limit: 100// optional; default value 50
+    }
+    const response = await this.postQuery('/api/v1/account/order_history', request);
+    return response;
+  }
 
+  // get order history list 
+  async getOrderHistoryList(){
+    // optinal 
+    const request ={
+      offset: 10, //optional; default value 0
+	    limit: 100// optional; default value 50
+    }
+    const response = await this.postQuery('/api/v1/account/order_history_list', request);
+    return response;
+  }
+
+
+  //async getAccountBalance
   // Market API
   // async getNew() {
   //   const response = await this.request.get('/api/v1/order/new');
@@ -110,6 +158,17 @@ class CoinsbitClient {
 
   version() {
     return "1.0.0";
+  }
+
+  // check assest found if not found
+  async isAssestFound(apiPath, assetId){
+    const response = await this.postQuery(apiPath);
+    let request = response.data.result;
+    if (request.hasOwnProperty(assetId)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
