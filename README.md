@@ -7,7 +7,7 @@
 3. [Getting Started](#chapter-003)
 4. [Functions](#chapter-004)
 5. [Running the Tests](#chapter-005)
-6. [Toolchain](#chapter-006)
+6. [Examples](#chapter-006)
 7. [Contributing](#chapter-007)
 
 
