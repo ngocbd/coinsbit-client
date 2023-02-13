@@ -9,7 +9,7 @@
 5. [Running the Tests](#chapter-005)
 6. [Toolchain](#chapter-006)
 7. [Contributing](#chapter-007)
-8. [License](#chapter-008)
+
 
 ## 1. Coinsbit-Client Description <a id="chapter-001"></a>
 The Coinsbit-client API Library provides a convenient way for developers to access the Coinsbit exchange platform 
