@@ -132,11 +132,11 @@ class CoinsbitClient {
   // Market API
   /**
    * @dev creat new Order from market using API
-   * @param {*} market - coin pairs eg. FRL_USDT
-   * @param {*} side  -  buy or sell action
-   * @param {*} amount - expected Amount of coin to buy or sell 
-   * @param {*} price - expected price for selling or buying
-   * @returns 
+   * @param {*} market - coin pairs eg. FRL_USDT ,required 
+   * @param {*} side  -  buy or sell action , required
+   * @param {*} amount - expected Amount of coin to buy or sell, required 
+   * @param {*} price - expected price for selling or buying, required
+   * @returns reponse
    */
   async createNewOrder(request = {}) {
     //const {market, side , amount, price } = request;
@@ -145,20 +145,23 @@ class CoinsbitClient {
   }
   /**
    * @dev: Be able to cancel the order
-   * @param {*} market - coin pairs eg. FRL_USDT
-   * @param {*} orderId - order id 
+   * @param {*} market - coin pairs eg. FRL_USDT, required
+   * @param {*} orderId - order id , required
    */
-  async cancelOrder(market, orderId){
-    const request = {
-      market : market,
-      orderId:  orderId
-    }
+  async cancelOrder(request = {}){
+    //const {market, orderId } = request;
     const response = await this.postQuery('/api/v1/order/cancel', request);
     return response;
   }
-
-  async cancelOrder(request = {}){
-    const response = await this.postQuery('/api/v1/order/cancel', request);
+   /**
+   * @dev: Be able to cancel the order
+   * @param {*} market - coin pairs eg. FRL_USDT ,required 
+   * @param {*} offset - optional, defaul = 0
+   * @param {*} limit - optinal, defaul = 50
+   */
+  async getOrders(request = {}){
+    // const {market, offset, limit} = request
+    const response = await this.postQuery('/api/v1/orders', request);
     return response;
   }
 

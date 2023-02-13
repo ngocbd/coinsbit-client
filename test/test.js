@@ -79,8 +79,8 @@ describe("CoinsbitClient Tests", () => {
 		//coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
 		
-		const balances = await coinsbitClient.getAccountBalance();
-		console.log(JSON.stringify(balances.data));
+		//const balances = await coinsbitClient.getAccountBalance();
+		//console.log(JSON.stringify(balances.data));
 		
 	 });
 	 // Test Account Balance - - api/v1/account/balances
@@ -113,47 +113,233 @@ describe("CoinsbitClient Tests", () => {
 		let assestId = "ETH";
 		const balances = await coinsbitClient.getAccountBalanceEach(assestId);
 		//console.log(balances.data);
-		
+	 });
+	//////////////////////////////////////////////////////
+	/// Test Order - /api/v1/account/order
+	describe("Order Book", async() =>{
+		// Test with 1 parameter
+		it("Order Book - 1 parameter: Order ID", async() => {
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			const request = {
+				orderId: 1234, // only one parameter
+			  };
+			const order = await coinsbitClient.getOrder(request);
+			expect(order).to.be.an('object');
+			//console.log(order.data);
+			//console.log(JSON.stringify(order.data))
+		 });
+		 //Test with 3 parameters
+		 it("Order Book - 3 parameters", async() => {
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			const request = {
+				orderId: 1234, // order id
+				offset: 10, // optinal - changed 0 to 10
+				limit: 100  // optinal - changed 50 to 10
+			  };
+			const order = await coinsbitClient.getOrder(request);
+			expect(order).to.be.an('object');
+			//console.log(order.data);
+			//console.log(JSON.stringify(order.data))
+		 });
+	});
 
-	 });
-	 // Test Orfer - /api/v1/account/order
-	 it("Order Book", async() => {
-		// set API key
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		const order = await coinsbitClient.getOrder(1234);
-		expect(order).to.be.an('object');
-		//console.log(order.data);
-		//console.log(JSON.stringify(order.data))
-	 });
 	 // Test trade - /api/v1/account/trades
-	 it("Trades API", async() =>{
-		// set API key
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		const trade = await coinsbitClient.getTrades(1234);
-		expect(trade).to.be.an('object');
-		//console.log(JSON.stringify(trade.data));
+	 describe("Trades API ", async() =>{
+		 // Test with only 1 parameter
+		 it("Trades API - 1 parameter only - orderId", async() =>{
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			const request = {
+				orderId: 1234, // only one parameter
+			  };
+			const trade = await coinsbitClient.getTrades(request);
+			expect(trade).to.be.an('object');
+			// console.log("OK");
+			// console.log(JSON.stringify(trade.data));
+		 });
+		 // Test with 3 parameters
+		it("Trades API - 3 parameters", async() =>{
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			const request = {
+				orderId: 1234,
+				offset: 10, // optinal - changed 0 to 10
+				limit: 100  // optinal - changed 50 to 10
+			  };
+			const trade = await coinsbitClient.getTrades(request);
+			expect(trade).to.be.an('object');
+			// console.log("OK");
+			// console.log(JSON.stringify(trade.data));
+		 });
 	 });
+	
+
+	 ////////////////////////////
 	// Test Order History - /api/v1/account/order_history
-	it("Order History", async() =>{
-		// set API key
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		const orderHistory = await coinsbitClient.getOrderHistory();
-		expect(orderHistory).to.be.an('object');
-		//console.log(JSON.stringify(orderHistory.data));
-		let pairID = "FRL_USDT";
-		let orderHistoryId = orderHistory.data.result;
-		//console.log(orderHistoryId[pairID]);
+	// it("Order History", async() =>{
+	// 	// set API key
+	// 	coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+	// 	const orderHistory = await coinsbitClient.getOrderHistory();
+	// 	expect(orderHistory).to.be.an('object');
+	// 	//console.log(JSON.stringify(orderHistory.data));
+	// 	let pairID = "FRL_USDT";
+	// 	let orderHistoryId = orderHistory.data.result;
+	// 	console.log(orderHistoryId[pairID]);
+	// 	console.log(orderHistory.data);
+	// });
+	////////////////////////////////////////
+	// Test Order History - /api/v1/account/order_history
+	describe("Order History", async() =>{
+		// Test without paramter
+		it("Order History - without paramter", async() =>{
+		   // set API key
+		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		   const request = {
+			   
+			 };
+			 const orderHistory = await coinsbitClient.getOrderHistory(request);
+			 expect(orderHistory).to.be.an('object');
+			 //console.log(JSON.stringify(orderHistory.data));
+			 let pairID = "FRL_USDT";
+			 let orderHistoryId = orderHistory.data.result;
+			 //console.log(orderHistoryId[pairID]);
+			 //console.log(orderHistory.data);
+		});
+		// Test with 2 parameters
+	   it("Trades API - 2 parameters", async() =>{
+		   // set API key
+		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		   const request = {
+			   offset: 10, // optinal - changed 0 to 10
+			   limit: 100  // optinal - changed 50 to 10
+			 };
+			 
+			 const orderHistory = await coinsbitClient.getOrderHistory(request);
+			 expect(orderHistory).to.be.an('object');
+			 //console.log(JSON.stringify(orderHistory.data));
+			 let pairID = "FRL_USDT";
+			 let orderHistoryId = orderHistory.data.result;
+			 //console.log(orderHistoryId[pairID]);
+			 //console.log(orderHistory.data);
+		});
 	});
+
+
 	// Test Order History List - /api/v1/account/order_history_list
-	it("Order History List", async() =>{
-		// set API key
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		const orderHistoryList = await coinsbitClient.getOrderHistoryList();
-		expect(orderHistoryList).to.be.an('object');
-		//console.log(JSON.stringify(orderHistoryList.data));
-		//let pairID = "FRL_USDT";
-		//let orderHistoryListId = orderHistoryList.data.result;
-		//console.log(orderHistoryListId);
+	describe("Order History List", async() =>{
+		// Test without paramter
+		it("Order History List - without paramter", async() =>{
+		   // set API key
+		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		   const request = {
+			   
+			 };
+			const orderHistoryList = await coinsbitClient.getOrderHistoryList(request);
+			expect(orderHistoryList).to.be.an('object');
+	
+			// let pairID = "FRL_USDT";
+			// let orderHistoryListId = orderHistoryList.data.result;
+			//console.log(orderHistoryListId);
+		});
+		// Test with 2 parameters
+	   it("Order History List - 2 parameters", async() =>{
+		   // set API key
+		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+		   const request = {
+			   offset: 10, // optinal - changed 0 to 10
+			   limit: 100  // optinal - changed 50 to 10
+			 };
+			 
+			const orderHistoryList = await coinsbitClient.getOrderHistoryList(request);
+			expect(orderHistoryList).to.be.an('object');
+	
+			// let pairID = "FRL_USDT";
+			// let orderHistoryListId = orderHistoryList.data.result;
+			//console.log(orderHistoryListId);
+		});
 	});
+
+
+	/**
+	 *  Market API - Testing!!!!!!!!!!!!!!!!!!
+	 */
+	// Make new order from market API
+	describe("Create New Order from Market API", async() =>{
+		// Sell action
+		it("Create new order - Sell action", async() => {
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			// set parameters 
+			const request = {
+				market : "FRL_USDT",
+				side : "sell",
+				amount : 0.1,
+				price : 0.1
+			}
+			// let market = "FRL_USDT";
+			// let side = "sell";
+			// let amount = 0.1;
+			// let price = 0.1;
+			const newOrder = await coinsbitClient.createNewOrder(request);
+			expect(newOrder).to.be.an('object');
+			//console.log(newOrder.data.result);
+		});
+		//Buy action
+		it("Create new order - Buy action", async() => {
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			// set parameters 
+			const request = {
+				market : "FRL_USDT",
+				side : "buy",
+				amount : 0.1,
+				price : 0.6
+			}
+			const newOrder = await coinsbitClient.createNewOrder(request);
+			expect(newOrder).to.be.an('object');
+			// get return message from the buy order if the order faild
+
+		});
+	});
+	// Cancel Order testing
+	describe("Cancel the order", async() =>{
+		// Cancel the order
+		it("Cancel the order - 2 parameters", async() =>{
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			// set parameter 
+			const request = {
+				market: "FRL_USDT",
+				orderId: 13880459872
+			}
+			const cancel = await coinsbitClient.cancelOrder(request);
+			expect(cancel).to.be.an('object');
+			//console.log("Check cancel:" + cancel);
+		});
+	});
+
+	// Get orders
+	describe("Get orders from market", async() => {
+		// get orders
+		it("Get orders - from market", async() => {
+			// set API key
+			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
+			// set parameter 
+			const request = {
+				market: "FRL_USDT",
+				offset: 10,
+				limit: 100
+			}
+			const getOrder = await coinsbitClient.getOrders(request);
+			expect(getOrder).to.be.an('object');
+			//console.log(getOrder.data.result);
+		});
+	});
+
+	
+	
+	
 
 })
