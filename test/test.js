@@ -295,24 +295,11 @@ describe("CoinsbitClient Tests", () => {
 				market : "FRL_USDT",
 				side : "buy",
 				amount : 0.1,
-				price : 0.2
+				price : 0.6
 			}
 			const newOrder = await coinsbitClient.createNewOrder(request);
 			expect(newOrder).to.be.an('object');
 			// get return message from the buy order if the order faild
-			console.log(newOrder.data);
-			console.log(newOrder.data.result);
-			console.log(newOrder.data.result.market);
-			console.log(newOrder.data.result.orderId);
-
-			// Cancel the order 
-			const cancelRequest = {
-				market: newOrder.data.result.market,
-				orderId: newOrder.data.result.orderId
-			}
-			const cancel = await coinsbitClient.cancelOrder(cancelRequest);
-			expect(cancel).to.be.an('object');
-			console.log(cancel.data);
 
 		});
 	});
@@ -325,11 +312,11 @@ describe("CoinsbitClient Tests", () => {
 			// set parameter 
 			const request = {
 				market: "FRL_USDT",
-				orderId: 14147194369
+				orderId: 13880459872
 			}
 			const cancel = await coinsbitClient.cancelOrder(request);
 			expect(cancel).to.be.an('object');
-			//console.log(cancel.data);
+			//console.log("Check cancel:" + cancel);
 		});
 	});
 
@@ -347,7 +334,7 @@ describe("CoinsbitClient Tests", () => {
 			}
 			const getOrder = await coinsbitClient.getOrders(request);
 			expect(getOrder).to.be.an('object');
-			//console.log(getOrder.data);
+			//console.log(getOrder.data.result);
 		});
 	});
 
