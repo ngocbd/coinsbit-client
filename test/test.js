@@ -80,7 +80,7 @@ describe("CoinsbitClient Tests", () => {
 		coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
 		
 		const balances = await coinsbitClient.getAccountBalance();
-		//console.log(JSON.stringify(balances.data));
+		console.log(JSON.stringify(balances.data));
 		
 	 });
 	 // Test Account Balance - - api/v1/account/balances
@@ -150,7 +150,7 @@ describe("CoinsbitClient Tests", () => {
 		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		const orderHistoryList = await coinsbitClient.getOrderHistoryList();
 		expect(orderHistoryList).to.be.an('object');
-		//console.log(JSON.stringify(orderHistory.data));
+		//console.log(JSON.stringify(orderHistoryList.data));
 		//let pairID = "FRL_USDT";
 		//let orderHistoryListId = orderHistoryList.data.result;
 		//console.log(orderHistoryListId);
