@@ -15,7 +15,10 @@
 The Coinsbit-client API Library provides a convenient way for developers to access the Coinsbit exchange platform 
 and build applications that interact with it. 
 This project includes tests for the Coinsbit-client and the tests are used to ensure that the functions are working correctly!
-
+### Install
+```sh
+npm install coinsbit-client
+```
 ## 2. API Documentation <a id="chapter-002"></a>
 
 The API documentation is available at [API DOCUMENTATION](https://www.notion.so/coinsbitwsapi/API-COINSBIT-WS-API-COINSBIT-cf1044cff30646d49a0bab0e28f27a87). The documentation includes a list of all of the available endpoints, as well as detailed information on how to use the API.
