@@ -9,7 +9,8 @@
   "author": "Ngocbd",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -20,5 +21,4 @@
     "sinon": "^12.0.0",
     "supertest": "^3.0.0"
   }
-  
 }

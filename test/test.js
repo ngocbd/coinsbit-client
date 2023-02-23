@@ -1,16 +1,23 @@
 const chai = require('chai')
 const expect = chai.expect
 const coinsbitClient = require('../index.js')()
+require('dotenv').config();
+
+
+
+beforeEach(async() =>{
+	coinsbitClient.setKey(process.env.API_KEY,process.env.SECRET_KEY);
+	
+});
 
 describe("CoinsbitClient Tests", () => {
 
 	//test a function for a specific case
 
-
 	// Public API
 
 	it("should return client version", () => {
-		expect(coinsbitClient.version()).equals("1.0.0");
+		expect(coinsbitClient.version()).equals("1.0.5");
 	})
 	it("should return markets", async () => {
 		const markets = await coinsbitClient.getMarkets();
@@ -76,9 +83,7 @@ describe("CoinsbitClient Tests", () => {
 	// AccountAPI
 
 	 it('should return balances', async () => {
-		//coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
-		
+	
 		//const balances = await coinsbitClient.getAccountBalance();
 		//console.log(JSON.stringify(balances.data));
 		
@@ -86,8 +91,6 @@ describe("CoinsbitClient Tests", () => {
 	 // Test Account Balance - - api/v1/account/balances
 	 it("Should return balance V2", async() => {
 		// set API key
-		coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		//coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
 		const balances = await coinsbitClient.getAccountBalance();
 		//console.log(JSON.stringify(balance.data));
 		// get result of coins
@@ -108,8 +111,6 @@ describe("CoinsbitClient Tests", () => {
 	 // Data not found
 	 it("Should return account balance of coin", async() => {
 		// set API key
-		//coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
-		coinsbitClient.setKey('E5A17C0F9E36E10A4FF640E86C3FADFB','454F9BB49518EE2BF094BF0F946F12D9');
 		let assestId = "ETH";
 		const balances = await coinsbitClient.getAccountBalanceEach(assestId);
 		//console.log(balances.data);
@@ -120,7 +121,6 @@ describe("CoinsbitClient Tests", () => {
 		// Test with 1 parameter
 		it("Order Book - 1 parameter: Order ID", async() => {
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			const request = {
 				orderId: 1234, // only one parameter
 			  };
@@ -132,7 +132,6 @@ describe("CoinsbitClient Tests", () => {
 		 //Test with 3 parameters
 		 it("Order Book - 3 parameters", async() => {
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			const request = {
 				orderId: 1234, // order id
 				offset: 10, // optinal - changed 0 to 10
@@ -150,7 +149,6 @@ describe("CoinsbitClient Tests", () => {
 		 // Test with only 1 parameter
 		 it("Trades API - 1 parameter only - orderId", async() =>{
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			const request = {
 				orderId: 1234, // only one parameter
 			  };
@@ -162,7 +160,6 @@ describe("CoinsbitClient Tests", () => {
 		 // Test with 3 parameters
 		it("Trades API - 3 parameters", async() =>{
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			const request = {
 				orderId: 1234,
 				offset: 10, // optinal - changed 0 to 10
@@ -180,7 +177,6 @@ describe("CoinsbitClient Tests", () => {
 	// Test Order History - /api/v1/account/order_history
 	// it("Order History", async() =>{
 	// 	// set API key
-	// 	coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 	// 	const orderHistory = await coinsbitClient.getOrderHistory();
 	// 	expect(orderHistory).to.be.an('object');
 	// 	//console.log(JSON.stringify(orderHistory.data));
@@ -195,7 +191,6 @@ describe("CoinsbitClient Tests", () => {
 		// Test without paramter
 		it("Order History - without paramter", async() =>{
 		   // set API key
-		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		   const request = {
 			   
 			 };
@@ -210,7 +205,6 @@ describe("CoinsbitClient Tests", () => {
 		// Test with 2 parameters
 	   it("Trades API - 2 parameters", async() =>{
 		   // set API key
-		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		   const request = {
 			   offset: 10, // optinal - changed 0 to 10
 			   limit: 100  // optinal - changed 50 to 10
@@ -232,7 +226,6 @@ describe("CoinsbitClient Tests", () => {
 		// Test without paramter
 		it("Order History List - without paramter", async() =>{
 		   // set API key
-		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		   const request = {
 			   
 			 };
@@ -246,7 +239,6 @@ describe("CoinsbitClient Tests", () => {
 		// Test with 2 parameters
 	   it("Order History List - 2 parameters", async() =>{
 		   // set API key
-		   coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 		   const request = {
 			   offset: 10, // optinal - changed 0 to 10
 			   limit: 100  // optinal - changed 50 to 10
@@ -270,7 +262,6 @@ describe("CoinsbitClient Tests", () => {
 		// Sell action
 		it("Create new order - Sell action", async() => {
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			// set parameters 
 			const request = {
 				market : "FRL_USDT",
@@ -289,7 +280,6 @@ describe("CoinsbitClient Tests", () => {
 		//Buy action
 		it("Create new order - Buy action", async() => {
 			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			// set parameters 
 			const request = {
 				market : "FRL_USDT",
@@ -307,8 +297,6 @@ describe("CoinsbitClient Tests", () => {
 	describe("Cancel the order", async() =>{
 		// Cancel the order
 		it("Cancel the order - 2 parameters", async() =>{
-			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			// set parameter 
 			const request = {
 				market: "FRL_USDT",
@@ -324,8 +312,6 @@ describe("CoinsbitClient Tests", () => {
 	describe("Get orders from market", async() => {
 		// get orders
 		it("Get orders - from market", async() => {
-			// set API key
-			coinsbitClient.setKey('0653CB611B5C12B1F4E7C832A8E579A1','C06035108971437ECF2B0C90B629FA2A');
 			// set parameter 
 			const request = {
 				market: "FRL_USDT",
