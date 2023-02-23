@@ -23,14 +23,16 @@ class CoinsbitClient {
     const response = await this.request.get('/api/v1/public/markets');
     return response.data;
   }
+  // get tickers
   async getTickers() {
     const response = await this.request.get('/api/v1/public/tickers');
     return response.data;
   }
 
-  async getTicker() {
-    const response = await this.request.get('/api/v1/public/ticker');
-    return response.data;
+  // Get specificTicker - lastPrice
+  async getTicker(request = {}){
+    const respone = await this.postQuery('/api/v1/public/ticker', request);
+    return respone;
   }
 
   async getBook() {
@@ -91,6 +93,14 @@ class CoinsbitClient {
 
     return response;
   }
+
+  // get specific balance
+  async getSpecificBalance(request = {}){
+    // input: currency
+    const respone = await this.postQuery('/api/v1/account/balance', request);
+    return respone;
+  }
+  
   // get Accont Balance of each coin ID
   async getAccountBalanceEach(assetId){
     const response = await this.postQuery('/api/v1/account/balance', assetId);
@@ -112,8 +122,6 @@ class CoinsbitClient {
     return response;
 
   }
-
-  //
   // get order history
   async getOrderHistory(request = {}){
     //const {offset = 0, limit = 50 } = request;
@@ -121,7 +129,6 @@ class CoinsbitClient {
     return response;
 
   }
-
   // get order history list 
   async getOrderHistoryList(request = {}){
     //const {offset = 0, limit = 50 } = request;
@@ -130,51 +137,23 @@ class CoinsbitClient {
 
   }
   // Market API
-  /**
-   * @dev creat new Order from market using API
-   * @param {*} market - coin pairs eg. FRL_USDT ,required 
-   * @param {*} side  -  buy or sell action , required
-   * @param {*} amount - expected Amount of coin to buy or sell, required 
-   * @param {*} price - expected price for selling or buying, required
-   * @returns reponse
-   */
   async createNewOrder(request = {}) {
     //const {market, side , amount, price } = request;
     const response = await this.postQuery('/api/v1/order/new', request);
     return response;
   }
-  /**
-   * @dev: Be able to cancel the order
-   * @param {*} market - coin pairs eg. FRL_USDT, required
-   * @param {*} orderId - order id , required
-   */
+ // cancel Order
   async cancelOrder(request = {}){
     //const {market, orderId } = request;
     const response = await this.postQuery('/api/v1/order/cancel', request);
     return response;
   }
-   /**
-   * @dev: Be able to cancel the order
-   * @param {*} market - coin pairs eg. FRL_USDT ,required 
-   * @param {*} offset - optional, defaul = 0
-   * @param {*} limit - optinal, defaul = 50
-   */
+  // get ative orders
   async getOrders(request = {}){
     // const {market, offset, limit} = request
     const response = await this.postQuery('/api/v1/orders', request);
     return response;
   }
-
-
-  // async getCancel() {
-  //   const response = await this.request.get('/api/v1/order/cancel');
-  //   return response.data;
-  // }
-
-  // async getOrder() { 
-  //   const response = await this.request.get('/api/v1/orders');
-  //   return response.data;
-  // }
 
   version() {
     return "1.0.4";
