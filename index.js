@@ -156,7 +156,7 @@ class CoinsbitClient {
   }
 
   version() {
-    return "1.0.4";
+    return "1.0.5";
   }
 
   // check assest found if not found
@@ -172,4 +172,4 @@ class CoinsbitClient {
 }
 
 exports = module.exports = () => { return new CoinsbitClient() };
-exports.version = () => { return "1.0.4" };
+exports.version = () => { return "1.0.5" };
